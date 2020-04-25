@@ -3,9 +3,10 @@ import re
 from typing import Union
 from werkzeug.datastructures import FileStorage
 import traceback
-from flask_uploads import UploadSet, IMAGES
+from flask_uploads import UploadSet, TEXT, DOCUMENTS, IMAGES, AUDIO, DATA, SCRIPTS, ARCHIVES, SOURCE, EXECUTABLES
 
-IMAGE_SET = UploadSet("images", IMAGES)  # set name and allowed extensions
+ALL_EXT = TEXT + DOCUMENTS + IMAGES + AUDIO + DATA + SCRIPTS + ARCHIVES + SOURCE + EXECUTABLES
+IMAGE_SET = UploadSet("images", ALL_EXT)  # set name and allowed extensions
 
 
 def save_image(image: FileStorage, folder: str = None, name: str = None) -> str:
