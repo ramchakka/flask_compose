@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <header>
+        <h1>Items for {{ model.name }}</h1>
+    </header>
+    <section>
+        <div class="list-group">
+            {% for item in items %}
+            <div class="list-group-item">
+                <h4 class="list-group-item-heading">Name {{ item.name }}</h4>
+                <a href="{{ url_for('webitems.download_file', item_id=item.id, model_id=model.id) }}">{{ item.filename }}</a>
+                <br></br>
+                <a class="btn btn-danger" href="{{ url_for('webitems.delete_item', item_id=item.id, model_id=model.id) }}">
+                    Permanently Delete Item
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <a class="btn btn-primary mt-3" href="{{ url_for('webitems.create_item', model_id=model.id) }}">
+            Create new
+        </a>
+    </section>
+</div>
+{% endblock %}

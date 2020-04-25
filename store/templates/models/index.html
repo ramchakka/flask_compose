@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <header>
+        <h1>Models</h1>
+    </header>
+    <section>
+        <div class="list-group">
+            {% for model in models %}
+            <div class="list-group-item">
+                <h4 class="list-group-item-heading">{{ model.name }}</h4>
+                <a class="btn btn-secondary" href="{{ url_for('webitems.index', model_id=model.id) }}">
+                    Items
+                </a>
+                <a class="btn btn-secondary" href="{{ url_for('webmodels.edit_model', model_id=model.id) }}">
+                    Rename Model
+                </a>
+                <a class="btn btn-danger" href="{{ url_for('webmodels.delete_model', model_id=model.id) }}">
+                    Permanently Delete Model
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <a class="btn btn-primary mt-3" href="{{ url_for('webmodels.create_model') }}">
+            Create new
+        </a>
+    </section>
+</div>
+{% endblock %}
