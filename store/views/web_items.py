@@ -53,7 +53,7 @@ def create_item():
         if 'file1' not in request.files:
             return "Missing file part"
         
-        if ItemModel.find_by_name(name):
+        if ItemModel.find_by_storeid_and_itemname(model_id,name):
             return gettext("web_items_alredyexists")
         
         file1 = request.files['file1']
@@ -104,8 +104,9 @@ def delete_item(item_id):
 @webitem_blueprint.route("/download/<string:item_id>")
 @requires_login
 def download_file(item_id):
-    item = ItemModel.find_by_id(item_id)
     model_id = request.args.get('model_id') 
+    item = ItemModel.find_by_id(item_id)
+    
    
     try:
         uploads = os.path.join( current_app.config['UPLOADED_IMAGES_DEST'], os.path.dirname(item.objname))

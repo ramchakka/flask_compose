@@ -6,6 +6,6 @@ from models.user import UserModel
 class ItemSchema(ma.ModelSchema):
     class Meta:
         model = ItemModel
-        load_only = ("store",)
+        load_only = ("store","store_id","objname",)
         dump_only = ("id",)
         include_fk = True

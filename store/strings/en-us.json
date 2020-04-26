@@ -16,5 +16,8 @@
   "user_error_creating": "Internal server error. Failed to create user.",
   "user_registered": "Account created successfully, an email with an activation link has been sent to your email address, please check.",
 
-  "web_items_alredyexists": "Item already exists with name. Try another name"
+  "web_items_alredyexists": "Item already exists with name. Try another name",
+  "getfile_store_notfound": "Store not found.",
+  "getfile_item_notfound": "Item not found.",
+  "getfile_file_notfound": "File not found."
 }

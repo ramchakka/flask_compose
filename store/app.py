@@ -21,22 +21,10 @@ from views.web_models import webmodel_blueprint
 from views.web_items import webitem_blueprint
 from resources.item import Item, ItemList
 from resources.store import Store, StoreList
+from resources.getfile import Getfile
+from resources.getencfile import GetEncodedFile
 from libs.image_helper import IMAGE_SET
 import os
-
-'''
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["PROPAGATE_EXCEPTIONS"] = True
-app.config["JWT_BLACKLIST_ENABLED"] = True  # enable blacklist feature
-app.config["JWT_BLACKLIST_TOKEN_CHECKS"] = [
-    "access",
-    "refresh",
-]  # allow blacklisting for access and refresh tokens
-app.secret_key = "jose"  # could do app.config['JWT_SECRET_KEY'] if we prefer
-api = Api(app)
-'''
 
 app = Flask(__name__)
 load_dotenv(".env", verbose=True)
@@ -46,7 +34,7 @@ app.config.from_envvar(
 )  # override with config.py (APPLICATION_SETTINGS points to config.py)
 logging.config.fileConfig(os.path.join(app.root_path,app.config["LOG_CONFIG_FILE"]))
 logger = logging.getLogger()
-patch_request_class(app, 10 * 1024 * 1024)  # restrict max upload image size to 10MB
+patch_request_class(app, 25 * 1024 * 1024)  # restrict max upload image size to 20MB
 configure_uploads(app, IMAGE_SET)
 app.secret_key = app.config["JWT_SECRET_KEY"]
 api = Api(app)
@@ -79,6 +67,8 @@ app.register_blueprint(webmodel_blueprint, url_prefix="/web/models")
 app.register_blueprint(webitem_blueprint, url_prefix="/web/items")
 
 api.add_resource(Store, "/store/<string:name>")
+api.add_resource(Getfile, "/file/<string:name>")
+api.add_resource(GetEncodedFile, "/encodedfile/<string:name>")
 api.add_resource(StoreList, "/stores")
 api.add_resource(Item, "/item/<string:name>")
 api.add_resource(ItemList, "/items")
@@ -89,7 +79,6 @@ api.add_resource(TokenRefresh, "/refresh")
 api.add_resource(UserLogout, "/logout")
 
 if __name__ == "__main__":
-    print('==== MAIN ====')
     #db.init_app(app)
     #ma.init_app(app)
     #app.run(host='0.0.0.0',port=5000, debug=True)

@@ -15,6 +15,7 @@ item_list_schema = ItemSchema(many=True)
 
 class Item(Resource):
     @classmethod
+    @jwt_required
     def get(cls, name: str):
         item = ItemModel.find_by_name(name)
         if item:
@@ -56,7 +57,8 @@ class Item(Resource):
         item = ItemModel.find_by_name(name)
 
         if item:
-            item.price = item_json["price"]
+            #item.price = item_json["price"]
+            pass
         else:
             item_json["name"] = name
             item = item_schema.load(item_json)
