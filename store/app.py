@@ -1,11 +1,12 @@
 from flask import Flask, jsonify,render_template, request, session, make_response
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
+from dotenv import load_dotenv
+from flask_migrate import Migrate
 from marshmallow import ValidationError
 from werkzeug.security import safe_str_cmp
 from flask_uploads import configure_uploads, patch_request_class
-from flask_migrate import Migrate
-from dotenv import load_dotenv
+
 from marshmallow import ValidationError
 import logging
 import logging.config
