@@ -81,7 +81,7 @@ class UserLogout(Resource):
         jti = get_raw_jwt()["jti"]  # jti is "JWT ID", a unique identifier for a JWT.
         user_id = get_jwt_identity()
         BLACKLIST.add(jti)
-        return {"message": USER_LOGGED_OUT.format(user_id)}, 200
+        return {"message": USER_LOGGED_OUT.format(user_id=user_id)}, 200
 
 
 class TokenRefresh(Resource):
